@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 import Header from '../common/Header';
@@ -8,9 +8,12 @@ import Journey from './Journey';
 import Submit from './Submit';
 
 function App(props) {
+  const onBack = useCallback(() => {
+    window.history.back();
+  }, []); // Prevent meaningless rerender
   return (
     <div>
-      <Header></Header>
+      <Header title='Ticket System' onBack={onBack}></Header>
       <DepartDate></DepartDate>
       <HighSpeed></HighSpeed>
       <Journey></Journey>
