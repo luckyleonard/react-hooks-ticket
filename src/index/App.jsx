@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
-import Header from '../common/Header';
-import DepartDate from './DepartDate';
-import HighSpeed from './HighSpeed';
-import Journey from './Journey';
-import Submit from './Submit';
+import Header from '../common/Header.jsx';
+import DepartDate from './DepartDate.jsx';
+import HighSpeed from './HighSpeed.jsx';
+import Journey from './Journey.jsx';
+import Submit from './Submit.jsx';
 
 function App(props) {
   const onBack = useCallback(() => {
@@ -13,7 +13,10 @@ function App(props) {
   }, []); // Prevent meaningless rerender
   return (
     <div>
-      <Header title='Ticket System' onBack={onBack}></Header>
+      <div className='header-wrapper'>
+        <Header title='Ticket System' onBack={onBack} />
+      </div>
+
       <DepartDate></DepartDate>
       <HighSpeed></HighSpeed>
       <Journey></Journey>
@@ -23,6 +26,10 @@ function App(props) {
 }
 
 export default connect(
-  function mapStateToProps(state) {},
-  function mapDispatchToProps(dispatch) {}
+  function mapStateToProps(state) {
+    return {};
+  },
+  function mapDispatchToProps(dispatch) {
+    return {};
+  }
 )(App);

@@ -9,7 +9,7 @@ export default function Header(props) {
     <div className='header'>
       <div className='header-back' onClick={onBack}>
         <svg width='42' height='42'>
-          <polylin
+          <polyline
             points='25,13 16,21 25,29'
             stroke='#fff'
             strokeWidth='2'
@@ -17,12 +17,12 @@ export default function Header(props) {
           />
         </svg>
       </div>
-      <hi className='header-title'>{title}</hi>
+      <h1 className='header-title'>{title}</h1>
     </div>
   );
 }
 
-Header.PropTypes = {
+Header.propTypes = {
   onBack: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired
 };
