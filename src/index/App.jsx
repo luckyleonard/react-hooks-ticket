@@ -8,7 +8,11 @@ import HighSpeed from './HighSpeed.jsx';
 import Journey from './Journey.jsx';
 import Submit from './Submit.jsx';
 import CitySelector from '../common/CitySelector.jsx';
-import { exchangeFromTo, showCityPicker } from './store/actionCreator';
+import {
+  exchangeFromTo,
+  showCityPicker,
+  hideCityPicker
+} from './store/actionCreator';
 
 function App(props) {
   const {
@@ -33,6 +37,9 @@ function App(props) {
     );
   }, []);
 
+  const citySelectorCallbacks = useMemo(() => {
+    return bindActionCreators({ onBack: hideCityPicker }, dispatch);
+  }, []);
   return (
     <div>
       <div className='header-wrapper'>
@@ -48,6 +55,7 @@ function App(props) {
         show={isCityPickerVisible}
         cityData={cityData}
         isLoading={isLoadingCityData}
+        {...citySelectorCallbacks}
       />
     </div>
   );
