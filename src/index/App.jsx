@@ -7,20 +7,28 @@ import DepartDate from './DepartDate.jsx';
 import HighSpeed from './HighSpeed.jsx';
 import Journey from './Journey.jsx';
 import Submit from './Submit.jsx';
+import CitySelector from '../common/CitySelector.jsx';
 import { exchangeFromTo, showCityPicker } from './store/actionCreator';
 
 function App(props) {
-  const { from, to, dispatch } = props;
+  const {
+    from,
+    to,
+    isCityPickerVisible,
+    cityData,
+    isLoadingCityData,
+    dispatch
+  } = props;
   const onBack = useCallback(() => {
     window.history.back();
   }, []); // Prevent meaningless rerender
 
   const allCallbacks = useMemo(() => {
-    return (
-      bindActionCreators({
+    return bindActionCreators(
+      {
         exchangeFromTo,
         showCityPicker
-      }),
+      },
       dispatch
     );
   }, []);
@@ -36,6 +44,11 @@ function App(props) {
         <HighSpeed></HighSpeed>
         <Submit></Submit>
       </form>
+      <CitySelector
+        show={isCityPickerVisible}
+        cityData={cityData}
+        isLoading={isLoadingCityData}
+      />
     </div>
   );
 }
