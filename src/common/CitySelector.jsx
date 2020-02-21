@@ -1,23 +1,29 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, memo } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 import './CitySelector.css';
 
-function CityItem(props) {
+const CityItem = memo(function CityItem(props) {
   const { name, onSelect } = props;
   return (
     <li className='city-li' onClick={() => onSelect(name)}>
       {name}
     </li>
   );
-}
+});
 
-function CitySection(props) {
+CityItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired
+};
+
+const CitySection = memo(function CitySection(props) {
   const { title, cities = [], onSelect } = props;
   return (
     <ul className='city-ui'>
-      <li className='city-li' key='title'>
+      <li className='city-li' key='title' data-cate={title}>
+        {/*添加一个data-cate标记用于选择*/}
         {title}
       </li>
       {cities.map(city => {
@@ -27,10 +33,35 @@ function CitySection(props) {
       })}
     </ul>
   );
-}
+});
 
-function CityList(props) {
-  const { sections, onSelect } = props;
+CitySection.propTypes = {
+  title: PropTypes.string.isRequired,
+  cities: PropTypes.array,
+  onSelect: PropTypes.func.isRequired
+};
+
+const AlphaIndex = memo(function AlphaIndex(props) {
+  const { alpha, onClick } = props;
+
+  return (
+    <i className='city-index-item' onClick={() => onClick(alpha)}>
+      {alpha}
+    </i>
+  );
+});
+
+AlphaIndex.propTypes = {
+  alpha: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
+};
+
+const alphabet = Array.from(new Array(26), (ele, index) => {
+  return String.fromCharCode(65 + index);
+}); //生成26个字母数组
+
+const CityList = memo(function CityList(props) {
+  const { sections, onSelect, toAlpha } = props;
 
   return (
     <div className='city-list'>
@@ -46,11 +77,22 @@ function CityList(props) {
           );
         })}
       </div>
+      <div className='city-index'>
+        {alphabet.map(alpha => {
+          return <AlphaIndex key={alpha} alpha={alpha} onClick={toAlpha} />;
+        })}
+      </div>
     </div>
   );
-}
+});
 
-export default function CitySelector(props) {
+CityList.propTypes = {
+  setions: PropTypes.array.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  toAlpha: PropTypes.func.isRequired
+};
+
+const CitySelector = memo(function CitySelector(props) {
   const { show, cityData, isLoading, onBack, onSelect, fetchCityData } = props;
 
   const [searchValue, setSearchValue] = useState('');
@@ -63,12 +105,22 @@ export default function CitySelector(props) {
     fetchCityData();
   }, [show, cityData, isLoading]); //在需要展示且没有cityData和并没有在loading状态下调用请求函数
 
+  const toAlpha = useCallback(alpha => {
+    document.querySelector(`[data-cate='${alpha}']`).scrollIntoView();
+  }, []); //与DOM的交互
+
   const outputCitySections = () => {
     if (isLoading) {
       return <div>Loading...</div>;
     }
     if (cityData) {
-      return <CityList sections={cityData.cityList} onSelect={onSelect} />;
+      return (
+        <CityList
+          sections={cityData.cityList}
+          onSelect={onSelect}
+          toAlpha={toAlpha}
+        />
+      );
     }
 
     return <div>Oops..there is an error</div>;
@@ -110,7 +162,7 @@ export default function CitySelector(props) {
       {outputCitySections()}
     </div>
   );
-}
+});
 
 CitySelector.propTypes = {
   show: PropTypes.bool.isRequired,
@@ -120,3 +172,5 @@ CitySelector.propTypes = {
   fetchCityData: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired
 };
+
+export default CitySelector;
