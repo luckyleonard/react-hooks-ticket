@@ -11,7 +11,8 @@ import CitySelector from '../common/CitySelector.jsx';
 import {
   exchangeFromTo,
   showCityPicker,
-  hideCityPicker
+  hideCityPicker,
+  fetchCityData
 } from './store/actionCreator';
 
 function App(props) {
@@ -27,7 +28,7 @@ function App(props) {
     window.history.back();
   }, []); // Prevent meaningless rerender
 
-  const allCallbacks = useMemo(() => {
+  const journeyCallbacks = useMemo(() => {
     return bindActionCreators(
       {
         exchangeFromTo,
@@ -38,7 +39,10 @@ function App(props) {
   }, []);
 
   const citySelectorCallbacks = useMemo(() => {
-    return bindActionCreators({ onBack: hideCityPicker }, dispatch);
+    return bindActionCreators(
+      { onBack: hideCityPicker, fetchCityData },
+      dispatch
+    );
   }, []);
   return (
     <div>
@@ -46,7 +50,7 @@ function App(props) {
         <Header title='Ticket System' onBack={onBack} />
       </div>
       <form className='form'>
-        <Journey from={from} to={to} {...allCallbacks} />
+        <Journey from={from} to={to} {...journeyCallbacks} />
         <DepartDate></DepartDate>
         <HighSpeed></HighSpeed>
         <Submit></Submit>

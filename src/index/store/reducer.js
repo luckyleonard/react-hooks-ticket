@@ -4,7 +4,7 @@ import {
   ACTION_SET_IS_CITY_PICKER_VISIBLE,
   ACTION_SET_CURRENT_PICKING_LEFT_CITY,
   ACTION_SET_CITY_DATA,
-  ACTION_SET_FINISH_LOADING_CITY_DATA,
+  ACTION_SET_IS_LOADING_CITY_DATA,
   ACTION_SET_IS_DATE_PICKER_VISIBLE,
   ACTION_SET_HIGH_SPEED_PICK
 } from './actionCreator';
@@ -60,10 +60,10 @@ export default {
 
     return state;
   },
-  finishLoadingCityData(state = false, action) {
+  isLoadingCityData(state = false, action) {
     const { type, value } = action;
     switch (type) {
-      case ACTION_SET_FINISH_LOADING_CITY_DATA:
+      case ACTION_SET_IS_LOADING_CITY_DATA:
         return value;
       default:
     }
