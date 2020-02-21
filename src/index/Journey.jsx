@@ -24,7 +24,7 @@ export default function Journey(props) {
           readOnly
           name='to'
           value={to}
-          className='journey-input journey-from'
+          className='journey-input journey-to'
         />
       </div>
     </div>

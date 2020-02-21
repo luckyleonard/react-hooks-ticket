@@ -46,7 +46,7 @@ export function toggleHighSpeed() {
   };
 }
 
-export function showCityPicker(currentPickngLeftCity) {
+export function showCityPicker(currentPickingLeftCity) {
   return dispatch => {
     dispatch({
       type: ACTION_SET_IS_CITY_PICKER_VISIBLE,
@@ -54,7 +54,7 @@ export function showCityPicker(currentPickngLeftCity) {
     });
     dispatch({
       type: ACTION_SET_CURRENT_PICKING_LEFT_CITY,
-      value: currentPickngLeftCity
+      value: currentPickingLeftCity
     });
   };
 }
@@ -68,13 +68,15 @@ export function hideCityPicker() {
 
 export function setPickedCity(city) {
   return (dispatch, getState) => {
-    const { currentPickngLeftCity } = getState();
+    const { currentPickingLeftCity } = getState();
 
-    if (currentPickngLeftCity) {
+    if (currentPickingLeftCity) {
       dispatch(setFrom(city));
     } else {
       dispatch(setTo(city));
     }
+
+    dispatch(hideCityPicker()); //hide picker after select
   };
 }
 
