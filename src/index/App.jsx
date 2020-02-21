@@ -12,7 +12,8 @@ import {
   exchangeFromTo,
   showCityPicker,
   hideCityPicker,
-  fetchCityData
+  fetchCityData,
+  setPickedCity
 } from './store/actionCreator';
 
 function App(props) {
@@ -24,6 +25,7 @@ function App(props) {
     isLoadingCityData,
     dispatch
   } = props;
+
   const onBack = useCallback(() => {
     window.history.back();
   }, []); // Prevent meaningless rerender
@@ -40,7 +42,7 @@ function App(props) {
 
   const citySelectorCallbacks = useMemo(() => {
     return bindActionCreators(
-      { onBack: hideCityPicker, fetchCityData },
+      { onBack: hideCityPicker, fetchCityData, onSelect: setPickedCity },
       dispatch
     );
   }, []);
