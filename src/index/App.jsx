@@ -13,7 +13,8 @@ import {
   showCityPicker,
   hideCityPicker,
   fetchCityData,
-  setPickedCity
+  setPickedCity,
+  showDatePicker
 } from './store/actionCreator';
 
 function App(props) {
@@ -23,6 +24,7 @@ function App(props) {
     isCityPickerVisible,
     cityData,
     isLoadingCityData,
+    departDate,
     dispatch
   } = props;
 
@@ -47,6 +49,10 @@ function App(props) {
     );
   }, []);
 
+  const departDateCallbacks = useMemo(() => {
+    return bindActionCreators({ onClick: showDatePicker }, dispatch);
+  }, []);
+
   return (
     <div>
       <div className='header-wrapper'>
@@ -54,7 +60,7 @@ function App(props) {
       </div>
       <form className='form'>
         <Journey from={from} to={to} {...journeyCallbacks} />
-        <DepartDate></DepartDate>
+        <DepartDate time={departDate} {...departDateCallbacks}></DepartDate>
         <HighSpeed></HighSpeed>
         <Submit></Submit>
       </form>
