@@ -46,6 +46,7 @@ function App(props) {
       dispatch
     );
   }, []);
+
   return (
     <div>
       <div className='header-wrapper'>
