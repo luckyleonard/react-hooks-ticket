@@ -6,8 +6,10 @@ import {
   ACTION_SET_CITY_DATA,
   ACTION_SET_IS_LOADING_CITY_DATA,
   ACTION_SET_IS_DATE_PICKER_VISIBLE,
-  ACTION_SET_HIGH_SPEED_PICK
+  ACTION_SET_HIGH_SPEED_PICK,
+  ACTION_SET_DEPART_DATE
 } from './actionCreator';
+import DepartDate from '../DepartDate';
 
 export default {
   from(state = 'Melbourne', action) {
@@ -84,6 +86,16 @@ export default {
     const { type, value } = action;
     switch (type) {
       case ACTION_SET_HIGH_SPEED_PICK:
+        return value;
+      default:
+    }
+
+    return state;
+  },
+  departDate(state = Date.now(), action) {
+    const { type, value } = action;
+    switch (type) {
+      case ACTION_SET_DEPART_DATE:
         return value;
       default:
     }

@@ -12,7 +12,8 @@ export default createStore(
     cityData: null,
     isLoadingCityData: false,
     isDatePickerVisible: false,
-    highSpeedPick: false
+    highSpeedPick: false,
+    departDate: Date.now()
   },
   applyMiddleware(thunk)
 );
