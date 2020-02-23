@@ -2,9 +2,57 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import dayjs from 'dayjs';
+import { formatDate } from '../common/dateFormater';
 import Header from './Header';
 import './DateSelector.css';
 import { setDepartDate } from '../index/store/actionCreator';
+
+function Day(props) {
+  const { day, onSelect } = props;
+  if (!day) {
+    return <td className='null'></td>;
+  } //day is null which means fill the block with grey
+  const classes = [];
+  const today = formatDate();
+
+  if (day < today) {
+    classes.push('disabled');
+  } //if the day is early than today put with disabled CSS
+
+  if ([6, 0].includes(new Date(day).getDay())) {
+    classes.push('weekend');
+  } //if the day is weekend, set with weekend CSS
+
+  const displayDate = today === day ? 'Today' : new Date(day).getDate();
+  //is today?
+  return (
+    <td className={classnames(classes)} onClick={() => onSelect(day)}>
+      {displayDate}
+    </td>
+  ); //onSelect method is defined in App.js
+}
+
+Day.propTypes = {
+  day: PropTypes.number,
+  onSelect: PropTypes.func.isRequired
+};
+
+function Week(props) {
+  const { days, onSelect } = props;
+
+  return (
+    <tr className='date-table-days'>
+      {days.map((day, index) => {
+        return <Day key={index} day={day} onSelect={onSelect} />;
+      })}
+    </tr>
+  );
+}
+
+Week.propTypes = {
+  days: PropTypes.array.isRequired,
+  onSelect: PropTypes.func.isRequired
+};
 
 function Month(props) {
   const { startingTimeInMonth, onSelect } = props;
@@ -51,6 +99,9 @@ function Month(props) {
           <th className='weekend'>Sat</th>
           <th className='weekend'>Sun</th>
         </tr>
+        {weeks.map((week, index) => {
+          return <Week key={index} days={week} onSelect={onSelect} />;
+        })}
       </tbody>
     </table>
   );

@@ -8,6 +8,7 @@ import Submit from './Submit';
 import Header from '../common/Header';
 import CitySelector from '../common/CitySelector';
 import DateSelector from '../common/DateSelector';
+import { formatDate } from '../common/dateFormater';
 import {
   exchangeFromTo,
   showCityPicker,
@@ -15,7 +16,8 @@ import {
   fetchCityData,
   setPickedCity,
   showDatePicker,
-  hideDatePicker
+  hideDatePicker,
+  setDepartDate
 } from './store/actionCreator';
 import './App.css';
 
@@ -60,6 +62,18 @@ function App(props) {
     return bindActionCreators({ onBack: hideDatePicker }, dispatch);
   }, []);
 
+  const onSelectDate = useCallback(day => {
+    if (!day) {
+      return;
+    }
+    if (day < formatDate()) {
+      return;
+    }
+
+    dispatch(setDepartDate(day));
+    dispatch(hideDatePicker());
+  }, []);
+
   return (
     <div>
       <div className='header-wrapper'>
@@ -77,7 +91,11 @@ function App(props) {
         isLoading={isLoadingCityData}
         {...citySelectorCallbacks}
       />
-      <DateSelector show={isDatePickerVisible} {...dateSelectorCallbacks} />
+      <DateSelector
+        show={isDatePickerVisible}
+        {...dateSelectorCallbacks}
+        onSelect={onSelectDate}
+      />
     </div>
   );
 }
