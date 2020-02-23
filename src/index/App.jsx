@@ -1,27 +1,30 @@
 import React, { useCallback, useMemo } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import './App.css';
-import Header from '../common/Header.jsx';
-import DepartDate from './DepartDate.jsx';
-import HighSpeed from './HighSpeed.jsx';
-import Journey from './Journey.jsx';
-import Submit from './Submit.jsx';
-import CitySelector from '../common/CitySelector.jsx';
+import DepartDate from './DepartDate';
+import HighSpeed from './HighSpeed';
+import Journey from './Journey';
+import Submit from './Submit';
+import Header from '../common/Header';
+import CitySelector from '../common/CitySelector';
+import DateSelector from '../common/DateSelector';
 import {
   exchangeFromTo,
   showCityPicker,
   hideCityPicker,
   fetchCityData,
   setPickedCity,
-  showDatePicker
+  showDatePicker,
+  hideDatePicker
 } from './store/actionCreator';
+import './App.css';
 
 function App(props) {
   const {
     from,
     to,
     isCityPickerVisible,
+    isDatePickerVisible,
     cityData,
     isLoadingCityData,
     departDate,
@@ -53,6 +56,10 @@ function App(props) {
     return bindActionCreators({ onClick: showDatePicker }, dispatch);
   }, []);
 
+  const dateSelectorCallbacks = useMemo(() => {
+    return bindActionCreators({ onBack: hideDatePicker }, dispatch);
+  }, []);
+
   return (
     <div>
       <div className='header-wrapper'>
@@ -70,6 +77,7 @@ function App(props) {
         isLoading={isLoadingCityData}
         {...citySelectorCallbacks}
       />
+      <DateSelector show={isDatePickerVisible} {...dateSelectorCallbacks} />
     </div>
   );
 }
