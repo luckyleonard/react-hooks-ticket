@@ -17,7 +17,8 @@ import {
   setPickedCity,
   showDatePicker,
   hideDatePicker,
-  setDepartDate
+  setDepartDate,
+  toggleHighSpeed
 } from './store/actionCreator';
 import './App.css';
 
@@ -30,6 +31,7 @@ function App(props) {
     cityData,
     isLoadingCityData,
     departDate,
+    highSpeedPick,
     dispatch
   } = props;
 
@@ -74,6 +76,10 @@ function App(props) {
     dispatch(hideDatePicker());
   }, []);
 
+  const highSpeedCallbacks = useMemo(() => {
+    return bindActionCreators({ toggle: toggleHighSpeed }, dispatch);
+  }, []);
+
   return (
     <div>
       <div className='header-wrapper'>
@@ -81,8 +87,8 @@ function App(props) {
       </div>
       <form className='form'>
         <Journey from={from} to={to} {...journeyCallbacks} />
-        <DepartDate time={departDate} {...departDateCallbacks}></DepartDate>
-        <HighSpeed></HighSpeed>
+        <DepartDate time={departDate} {...departDateCallbacks} />
+        <HighSpeed highSpeed={highSpeedPick} {...highSpeedCallbacks} />
         <Submit></Submit>
       </form>
       <CitySelector

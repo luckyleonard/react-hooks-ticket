@@ -9,7 +9,6 @@ import {
   ACTION_SET_HIGH_SPEED_PICK,
   ACTION_SET_DEPART_DATE
 } from './actionCreator';
-import DepartDate from '../DepartDate';
 
 export default {
   from(state = 'Melbourne', action) {
