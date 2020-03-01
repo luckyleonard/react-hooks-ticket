@@ -3,7 +3,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from './reducer';
 
-import dateFormater from '../../common/dateFormater';
+import { formatDate } from '../../common/dateFormater';
 import { ORDER_DEPART } from '../constant';
 
 export default createStore(
@@ -11,7 +11,7 @@ export default createStore(
   {
     from: null,
     to: null,
-    departDate: dateFormater(Date.now()),
+    departDate: formatDate(Date.now()),
     highSpeed: false,
     tripList: [],
     orderTyps: ORDER_DEPART,

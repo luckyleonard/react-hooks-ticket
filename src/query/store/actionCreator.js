@@ -1,5 +1,5 @@
 import { ORDER_DEPART, ORDER_DURATION } from '../constant';
-import dateFormater from '../../common/dateFormater';
+import { formatDate } from '../../common/dateFormater';
 export const ACTION_SET_FROM = 'ACTION_SET_FROM';
 export const ACTION_SET_TO = 'ACTION_SET_TO';
 export const ACTION_SET_DEPART_DATE = 'ACTION_SET_DEPART_DATE';
@@ -46,13 +46,13 @@ export function setDepartDate(departDate) {
 export function nextDate() {
   return (dispatch, getState) => {
     const { departDate } = getState();
-    dispatch(setDepartDate(dateFormater(departDate) + 86400 * 1000));
+    dispatch(setDepartDate(formatDate(departDate) + 86400 * 1000));
   };
 }
 export function prevDate() {
   return (dispatch, getState) => {
     const { departDate } = getState();
-    dispatch(setDepartDate(dateFormater(departDate) - 86400 * 1000));
+    dispatch(setDepartDate(formatDate(departDate) - 86400 * 1000));
   };
 }
 export function setHighSpeed(highSpeed) {
