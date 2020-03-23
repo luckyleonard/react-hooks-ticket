@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import { formatDate } from '../common/dateFormater';
 import Header from './Header';
 import './DateSelector.css';
-import { setDepartDate } from '../index/store/actionCreator';
 
 function Day(props) {
   const { day, onSelect } = props;
