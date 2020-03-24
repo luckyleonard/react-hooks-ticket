@@ -19,7 +19,7 @@ import {
   ACTION_SET_ARRIVE_TIME_START,
   ACTION_SET_ARRIVE_TIME_END,
   ACTION_SET_IS_FILTERS_VISIBLE,
-  ACTION_SET_SEARCH_PHARSED
+  ACTION_SET_SEARCH_PARSED
 } from './actionCreator';
 import { ORDER_DEPART } from '../constant';
 export default {
@@ -203,10 +203,10 @@ export default {
     }
     return state;
   },
-  searchPharsed(state = false, action) {
+  searchParsed(state = false, action) {
     const { type, value } = action;
     switch (type) {
-      case ACTION_SET_SEARCH_PHARSED:
+      case ACTION_SET_SEARCH_PARSED:
         return value;
       default:
     }

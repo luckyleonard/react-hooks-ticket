@@ -23,7 +23,7 @@ export const ACTION_SET_DEPART_TIME_END = 'ACTION_SET_DEPART_TIME_END';
 export const ACTION_SET_ARRIVE_TIME_START = 'ACTION_SET_ARRIVE_TIME_START';
 export const ACTION_SET_ARRIVE_TIME_END = 'ACTION_SET_ARRIVE_TIME_END';
 export const ACTION_SET_IS_FILTERS_VISIBLE = 'ACTION_SET_IS_FILTERS_VISIBLE';
-export const ACTION_SET_SEARCH_PHARSED = 'ACTION_SET_SEARCH_PHARSED';
+export const ACTION_SET_SEARCH_PARSED = 'ACTION_SET_SEARCH_PARSED';
 
 export function setFrom(from) {
   return {
@@ -179,9 +179,9 @@ export function toggleIsFiltersVisible() {
     });
   };
 }
-export function setSearchPharsed(searchPharsed) {
+export function setSearchParsed(searchParsed) {
   return {
-    type: ACTION_SET_SEARCH_PHARSED,
-    value: searchPharsed
+    type: ACTION_SET_SEARCH_PARSED,
+    value: searchParsed
   };
 }

@@ -7,7 +7,7 @@ export default function HighSpeed(props) {
   const { highSpeed, toggle } = props;
   return (
     <div className='high-speed'>
-      <div className='high-speed-label'>Only direct fly</div>
+      <div className='high-speed-label'>Only Direct Fly</div>
       <div className='high-speed-switch' onClick={() => toggle()}>
         <input type='hidden' name='highSpeed' value={highSpeed} />
         <div className={classnames('high-speed-track', { checked: highSpeed })}>

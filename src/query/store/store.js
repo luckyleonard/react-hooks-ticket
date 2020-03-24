@@ -29,7 +29,7 @@ export default createStore(
     arriveTimeStart: 0,
     arriveTimeEnd: 24,
     isFiltersVisible: false,
-    searchPharsed: false
+    searchParsed: false
   },
   applyMiddleware(thunk)
 );
