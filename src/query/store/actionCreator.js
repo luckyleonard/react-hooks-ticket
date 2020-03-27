@@ -73,10 +73,10 @@ export function setTripList(tripList) {
     value: tripList
   };
 }
-export function toggleOrderTyps() {
+export function toggleOrderTypes() {
   return (dispatch, getState) => {
-    const { orderType } = getState();
-    if (orderType === ORDER_DEPART) {
+    const { orderTyps } = getState();
+    if (orderTyps === ORDER_DEPART) {
       dispatch({
         type: ACTION_SET_ORDER_TYPES,
         value: ORDER_DURATION
