@@ -28,7 +28,15 @@ import {
   toggleOrderTypes,
   toggleHighSpeed,
   toggleOnlyTickets,
-  toggleIsFiltersVisible
+  toggleIsFiltersVisible,
+  setCheckedTicketTypes,
+  setCheckedTripTypes,
+  setCheckedDepartStations,
+  setCheckedArriveStations,
+  setDepartTimeStart,
+  setDepartTimeEnd,
+  setArriveTimeStart,
+  setArriveTimeEnd
 } from './store/actionCreator';
 
 function App(props) {
@@ -39,6 +47,14 @@ function App(props) {
     highSpeed,
     orderTyps,
     onlyTickets,
+    searchParsed,
+    dispatch,
+    tripList,
+    isFiltersVisible,
+    ticketTypes,
+    tripTypes,
+    departStations,
+    arriveStations,
     checkedTicketTypes,
     checkedTripTypes,
     checkedDepartStations,
@@ -46,11 +62,7 @@ function App(props) {
     departTimeStart,
     departTimeEnd,
     arriveTimeStart,
-    arriveTimeEnd,
-    searchParsed,
-    dispatch,
-    tripList,
-    isFiltersVisible
+    arriveTimeEnd
   } = props;
 
   useEffect(() => {
@@ -61,7 +73,7 @@ function App(props) {
     dispatch(setDepartDate(formatDate(dayjs(date).valueOf())));
     dispatch(setHighSpeed(highSpeed === 'true'));
     dispatch(setSearchParsed(true));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (!searchParsed) {
@@ -143,11 +155,19 @@ function App(props) {
         toggleOrderTypes,
         toggleHighSpeed,
         toggleOnlyTickets,
-        toggleIsFiltersVisible
+        toggleIsFiltersVisible,
+        setCheckedTicketTypes,
+        setCheckedTripTypes,
+        setCheckedDepartStations,
+        setCheckedArriveStations,
+        setDepartTimeStart,
+        setDepartTimeEnd,
+        setArriveTimeStart,
+        setArriveTimeEnd
       },
       dispatch
     );
-  }, []);
+  }, [dispatch]);
 
   if (!searchParsed) {
     return null;
@@ -171,6 +191,18 @@ function App(props) {
         orderTyps={orderTyps}
         onlyTickets={onlyTickets}
         isFiltersVisible={isFiltersVisible}
+        ticketTypes={ticketTypes}
+        tripTypes={tripTypes}
+        departStations={departStations}
+        arriveStations={arriveStations}
+        checkedTicketTypes={checkedTicketTypes}
+        checkedTripTypes={checkedTripTypes}
+        checkedDepartStations={checkedDepartStations}
+        checkedArriveStations={checkedArriveStations}
+        departTimeStart={departTimeStart}
+        departTimeEnd={departTimeEnd}
+        arriveTimeStart={arriveTimeStart}
+        arriveTimeEnd={arriveTimeEnd}
         {...bottomCbs}
       />
     </>
