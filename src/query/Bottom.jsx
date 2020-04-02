@@ -1,4 +1,4 @@
-import React, { memo, useState, useCallback } from 'react';
+import React, { memo, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -74,7 +74,8 @@ const BottomModal = memo(function BottomModal(props) {
     setDepartTimeStart,
     setDepartTimeEnd,
     setArriveTimeStart,
-    setArriveTimeEnd
+    setArriveTimeEnd,
+    toggleIsFiltersVisible
   } = props;
 
   const [localCheckedTicketTypes, setLocalCheckedTicketTypes] = useState(() => {
@@ -139,13 +140,69 @@ const BottomModal = memo(function BottomModal(props) {
     }
   ];
 
+  function confirm() {
+    setCheckedTicketTypes(localCheckedTicketTypes);
+    setCheckedTripTypes(localCheckedTripTypes);
+    setCheckedDepartStations(localCheckedDepartStations);
+    setCheckedArriveStations(localCheckedArriveStations);
+
+    setDepartTimeStart(localDepartTimeStart);
+    setDepartTimeEnd(localDepartTimeEnd);
+    setArriveTimeStart(localArriveTimeStart);
+    setArriveTimeEnd(localArriveTimeEnd);
+    toggleIsFiltersVisible();
+  } //提交缓冲区数据到redux store 触发fetch side effect
+
+  const isResetDisabled = useMemo(() => {
+    return (
+      Object.keys(localCheckedTicketTypes).length === 0 &&
+      Object.keys(localCheckedTripTypes).length === 0 &&
+      Object.keys(localCheckedDepartStations).length === 0 &&
+      Object.keys(localCheckedArriveStations).length === 0 &&
+      localDepartTimeStart === 0 &&
+      localDepartTimeEnd === 24 &&
+      localArriveTimeStart === 0 &&
+      localArriveTimeEnd === 24
+    );
+  }, [
+    localCheckedTicketTypes,
+    localCheckedTripTypes,
+    localCheckedDepartStations,
+    localCheckedArriveStations,
+    localDepartTimeStart,
+    localDepartTimeEnd,
+    localArriveTimeStart,
+    localArriveTimeEnd
+  ]);
+
+  function reset() {
+    if (isResetDisabled) {
+      return;
+    }
+
+    setLocalCheckedTicketTypes({});
+    setLocalCheckedTripTypes({});
+    setLocalCheckedDepartStations({});
+    setLocalCheckedArriveStations({});
+    setLocalDepartTimeStart(0);
+    setLocalDepartTimeEnd(24);
+    setLocalArriveTimeStart(0);
+    setLocalArriveTimeEnd(24);
+  } //重置组件内缓冲初始值
+
   return (
     <div className='bottom-modal'>
       <div className='bottom-dialog'>
         <div className='bottom-dialog-content'>
           <div className='title'>
-            <span className='reset'>Reset</span>
-            <span className='ok'>Confirm</span>
+            <span
+              className={classnames('reset', { disabled: isResetDisabled })}
+              onClick={reset}>
+              Reset
+            </span>
+            <span className='ok' onClick={confirm}>
+              Confirm
+            </span>
           </div>
           <div className='options'>
             {optionGroup.map(group => {
@@ -204,6 +261,28 @@ export default function Bottom(props) {
     setArriveTimeEnd
   } = props;
 
+  const noChecked = useMemo(() => {
+    return (
+      Object.keys(checkedTicketTypes).length === 0 &&
+      Object.keys(checkedTripTypes).length === 0 &&
+      Object.keys(checkedDepartStations).length === 0 &&
+      Object.keys(checkedArriveStations).length === 0 &&
+      departTimeStart === 0 &&
+      departTimeEnd === 24 &&
+      arriveTimeStart === 0 &&
+      arriveTimeEnd === 24
+    );
+  }, [
+    checkedTicketTypes,
+    checkedTripTypes,
+    checkedDepartStations,
+    checkedArriveStations,
+    departTimeStart,
+    departTimeEnd,
+    arriveTimeStart,
+    arriveTimeEnd
+  ]);
+
   return (
     <div className='bottom'>
       <div className='bottom-filters'>
@@ -224,9 +303,11 @@ export default function Bottom(props) {
           Available
         </span>
         <span
-          className={classnames('item', { 'item-on': isFiltersVisible })}
+          className={classnames('item', {
+            'item-on': isFiltersVisible || !noChecked
+          })}
           onClick={toggleIsFiltersVisible}>
-          <i className='icon'>{'\uf0f7'}</i>
+          <i className='icon'>{noChecked ? '\uf0f7' : '\uf446'}</i>
           Filter
         </span>
       </div>
@@ -252,6 +333,7 @@ export default function Bottom(props) {
           setDepartTimeEnd={setDepartTimeEnd}
           setArriveTimeStart={setArriveTimeStart}
           setArriveTimeEnd={setArriveTimeEnd}
+          toggleIsFiltersVisible={toggleIsFiltersVisible}
         />
       )}
     </div>

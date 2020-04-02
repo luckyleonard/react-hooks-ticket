@@ -27,6 +27,19 @@ const Slider = memo(function Slider(props) {
   const [start, setStart] = useState(() => (currentStartHours / 24) * 100); //延迟初始化第一次初始化调用
   const [end, setEnd] = useState(() => (currentEndHours / 24) * 100);
 
+  const prevCurrentStartHours = useRef(currentStartHours);
+  const prevCurrentEndHours = useRef(currentEndHours);
+
+  if (prevCurrentStartHours.current !== currentStartHours) {
+    setStart((currentStartHours / 24) * 100);
+    prevCurrentStartHours.current = currentStartHours; //记得更新ref值
+  }
+
+  if (prevCurrentEndHours.current !== currentEndHours) {
+    setEnd((currentEndHours / 24) * 100);
+    prevCurrentEndHours.current = currentEndHours; //记得更新ref值
+  } // 存储上一次的props值用来与当前render时候的props对比进行赋值
+
   const startPercent = useMemo(() => {
     if (start > 100) {
       return 100;
