@@ -19,7 +19,7 @@ import {
   ACTION_SET_ARRIVE_TIME_START,
   ACTION_SET_ARRIVE_TIME_END,
   ACTION_SET_IS_FILTERS_VISIBLE,
-  ACTION_SET_SEARCH_PARSED
+  ACTION_SET_SEARCH_PARSED,
 } from './actionCreator';
 import { ORDER_DEPART } from '../constant';
 export default {
@@ -55,6 +55,9 @@ export default {
     switch (type) {
       case ACTION_SET_HIGH_SPEED:
         return value;
+      case ACTION_SET_CHECKED_TRIP_TYPES:
+        const checkedTripTypes = value;
+        return Boolean(checkedTripTypes[1] && checkedTripTypes[5]);
       default:
     }
     return state;
@@ -118,6 +121,17 @@ export default {
     switch (type) {
       case ACTION_SET_CHECKED_TRIP_TYPES:
         return value;
+      case ACTION_SET_HIGH_SPEED:
+        const highSpeed = value;
+        const newCheckedTrainTypes = { ...state };
+        if (highSpeed) {
+          newCheckedTrainTypes[1] = true;
+          newCheckedTrainTypes[5] = true;
+        } else {
+          delete newCheckedTrainTypes[1];
+          delete newCheckedTrainTypes[5];
+        }
+        return newCheckedTrainTypes;
       default:
     }
     return state;
@@ -211,5 +225,5 @@ export default {
       default:
     }
     return state;
-  }
+  },
 };
