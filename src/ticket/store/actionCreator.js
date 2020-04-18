@@ -1,3 +1,5 @@
+import { formatDate } from '../../common/dateFormater';
+
 export const ACTION_SET_DEPARTDATE = 'ACTION_SET_DEPARTDATE';
 export const ACTION_SET_ARRIVEDATE = 'ACTION_SET_ARRIVEDATE';
 export const ACTION_SET_DEPARTTIMESTR = 'ACTION_SET_DEPARTTIMESTR';
@@ -82,5 +84,18 @@ export function setSearchParsed(searchParsed) {
   return {
     type: ACTION_SET_SEARCHPARSED,
     value: searchParsed,
+  };
+}
+
+export function nextDate() {
+  return (dispatch, getState) => {
+    const { departDate } = getState();
+    dispatch(setDepartDate(formatDate(departDate) + 86400 * 1000));
+  };
+}
+export function prevDate() {
+  return (dispatch, getState) => {
+    const { departDate } = getState();
+    dispatch(setDepartDate(formatDate(departDate) - 86400 * 1000));
   };
 }
