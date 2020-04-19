@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import URI from 'urijs';
 import dayjs from 'dayjs';
@@ -19,7 +19,10 @@ import {
   setDepartDate,
   setSearchParsed,
   fetchInitial,
+  createAdult,
+  createChild,
 } from './store/actionCreator';
+import { bindActionCreators } from 'redux';
 
 function App(props) {
   const {
@@ -77,6 +80,16 @@ function App(props) {
     dispatch,
   ]);
 
+  const passengersCbs = useMemo(() => {
+    return bindActionCreators(
+      {
+        createAdult,
+        createChild,
+      },
+      dispatch
+    );
+  }, [dispatch]);
+
   if (!searchParsed) {
     return null;
   }
@@ -99,6 +112,8 @@ function App(props) {
           <span style={{ display: 'block' }} className='train-icon' />
         </Detail>
       </div>
+      <Ticket price={price} type={seatType} />
+      <Passengers passengers={passengers} {...passengersCbs} />
     </div>
   );
 }

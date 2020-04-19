@@ -118,3 +118,72 @@ export function fetchInitial(url) {
       });
   };
 }
+
+let passengerIdSeed = 0;
+
+export function createAdult() {
+  return (dispatch, getState) => {
+    const { passengers } = getState();
+
+    for (let passenger of passengers) {
+      const keys = Object.keys(passenger);
+      for (let key of keys) {
+        if (!passenger[key]) {
+          return;
+        }
+      }
+    }
+    dispatch(
+      setPassengers([
+        ...passengers,
+        {
+          id: ++passengerIdSeed,
+          name: '',
+          ticketType: 'adult',
+          licenceNo: '',
+          seat: 'Z',
+        },
+      ])
+    );
+  };
+}
+
+export function createChild() {
+  return (dispatch, getState) => {
+    const { passengers } = getState();
+
+    let adultFound = null;
+
+    for (let passenger of passengers) {
+      const keys = Object.keys(passenger);
+      for (let key of keys) {
+        if (!passenger[key]) {
+          return; //有字段为空则直接返回，阻止继续添加
+        }
+      }
+      if (passenger.ticketType === 'adult') {
+        adultFound = passenger.id; //找到成人则把id存下来
+      }
+    }
+
+    if (!adultFound) {
+      alert('Add at least one adult');
+      return; //找不到成人则弹出提示，并阻止添加
+    }
+
+    dispatch(
+      setPassengers([
+        ...passengers,
+        {
+          id: ++passengerIdSeed,
+          name: '',
+          gender: 'none',
+          birthday: '',
+          followAdult: '',
+          ticketType: 'adult',
+          seat: 'Z',
+        },
+      ])
+    );
+  };
+}
