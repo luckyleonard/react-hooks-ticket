@@ -21,6 +21,8 @@ import {
   fetchInitial,
   createAdult,
   createChild,
+  removePassenger,
+  updatePassenger,
 } from './store/actionCreator';
 import { bindActionCreators } from 'redux';
 
@@ -85,6 +87,8 @@ function App(props) {
       {
         createAdult,
         createChild,
+        removePassenger,
+        updatePassenger,
       },
       dispatch
     );
