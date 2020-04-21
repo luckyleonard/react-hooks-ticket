@@ -36,7 +36,7 @@ import {
   setDepartTimeStart,
   setDepartTimeEnd,
   setArriveTimeStart,
-  setArriveTimeEnd
+  setArriveTimeEnd,
 } from './store/actionCreator';
 
 function App(props) {
@@ -62,7 +62,7 @@ function App(props) {
     departTimeStart,
     departTimeEnd,
     arriveTimeStart,
-    arriveTimeEnd
+    arriveTimeEnd,
   } = props;
 
   useEffect(() => {
@@ -103,15 +103,15 @@ function App(props) {
       .toString();
 
     fetch(url)
-      .then(response => response.json())
-      .then(result => {
+      .then((response) => response.json())
+      .then((result) => {
         const {
           dataMap: {
             directTrainInfo: {
               trains,
-              filter: { ticketType, trainType, depStation, arrStation }
-            }
-          }
+              filter: { ticketType, trainType, depStation, arrStation },
+            },
+          },
         } = result;
         dispatch(setTripList(trains));
         dispatch(setTicketTypes(ticketType));
@@ -135,7 +135,7 @@ function App(props) {
     departTimeEnd,
     arriveTimeStart,
     arriveTimeEnd,
-    dispatch
+    dispatch,
   ]);
 
   const onBack = useCallback(() => {
@@ -163,7 +163,7 @@ function App(props) {
         setDepartTimeStart,
         setDepartTimeEnd,
         setArriveTimeStart,
-        setArriveTimeEnd
+        setArriveTimeEnd,
       },
       dispatch
     );
@@ -175,7 +175,7 @@ function App(props) {
 
   return (
     <>
-      <div className='header-wrapper'>
+      <div className="header-wrapper">
         <Header title={`${from} -> ${to}`} onBack={onBack} />
       </div>
       <Nav

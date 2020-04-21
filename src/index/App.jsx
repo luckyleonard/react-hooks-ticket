@@ -18,7 +18,7 @@ import {
   showDatePicker,
   hideDatePicker,
   setDepartDate,
-  toggleHighSpeed
+  toggleHighSpeed,
 } from './store/actionCreator';
 import './App.css';
 
@@ -32,7 +32,7 @@ function App(props) {
     isLoadingCityData,
     departDate,
     highSpeedPick,
-    dispatch
+    dispatch,
   } = props;
 
   const onBack = useCallback(() => {
@@ -43,49 +43,52 @@ function App(props) {
     return bindActionCreators(
       {
         exchangeFromTo,
-        showCityPicker
+        showCityPicker,
       },
       dispatch
     );
-  }, []);
+  }, [dispatch]);
 
   const citySelectorCallbacks = useMemo(() => {
     return bindActionCreators(
       { onBack: hideCityPicker, fetchCityData, onSelect: setPickedCity },
       dispatch
     );
-  }, []);
+  }, [dispatch]);
 
   const departDateCallbacks = useMemo(() => {
     return bindActionCreators({ onClick: showDatePicker }, dispatch);
-  }, []);
+  }, [dispatch]);
 
   const dateSelectorCallbacks = useMemo(() => {
     return bindActionCreators({ onBack: hideDatePicker }, dispatch);
-  }, []);
+  }, [dispatch]);
 
-  const onSelectDate = useCallback(day => {
-    if (!day) {
-      return;
-    }
-    if (day < formatDate()) {
-      return;
-    }
+  const onSelectDate = useCallback(
+    (day) => {
+      if (!day) {
+        return;
+      }
+      if (day < formatDate()) {
+        return;
+      }
 
-    dispatch(setDepartDate(day));
-    dispatch(hideDatePicker());
-  }, []);
+      dispatch(setDepartDate(day));
+      dispatch(hideDatePicker());
+    },
+    [dispatch]
+  );
 
   const highSpeedCallbacks = useMemo(() => {
     return bindActionCreators({ toggle: toggleHighSpeed }, dispatch);
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
-      <div className='header-wrapper'>
-        <Header title='Ticket System' onBack={onBack} />
+      <div className="header-wrapper">
+        <Header title="Ticket System" onBack={onBack} />
       </div>
-      <form action='./query.html' className='form'>
+      <form action="./query.html" className="form">
         <Journey from={from} to={to} {...journeyCallbacks} />
         <DepartDate time={departDate} {...departDateCallbacks} />
         <HighSpeed highSpeed={highSpeedPick} {...highSpeedCallbacks} />

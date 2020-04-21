@@ -23,13 +23,13 @@ const Channel = memo(function Channel(props) {
   }, [type, trainNumber, departStation, arriveStation, departDate]);
 
   return (
-    <div className='channel'>
-      <div className='middle'>
-        <div className='name'>{name}</div>
-        <div className='desc'>{desc}</div>
+    <div className="channel">
+      <div className="middle">
+        <div className="name">{name}</div>
+        <div className="desc">{desc}</div>
       </div>
-      <a href={src} className='buy-wrapper'>
-        <div className='buy'>Booking</div>
+      <a href={src} className="buy-wrapper">
+        <div className="buy">Booking</div>
       </a>
     </div>
   );
@@ -47,18 +47,19 @@ const Seat = memo(function Seat(props) {
   } = props;
   return (
     <li>
-      <div className='bar' onClick={() => onToggle(index)}>
-        <span className='seat'>{type}</span>
-        <span className='price'>
+      <div className="bar" onClick={() => onToggle(index)}>
+        <span className="seat">{type}</span>
+        <span className="price">
           <i>$</i>
           {priceMsg}
         </span>
-        <span className='btn'>{expanded ? '预订' : '收起'}</span>
-        <span className='num'>{ticketsLeft}</span>
+        <span className="btn">{expanded ? '预订' : '收起'}</span>
+        <span className="num">{ticketsLeft}</span>
       </div>
       <div
-        className='channels'
-        style={{ height: expanded ? channels.length * 55 + 'px' : 0 }}>
+        className="channels"
+        style={{ height: expanded ? channels.length * 55 + 'px' : 0 }}
+      >
         {channels.map((channel) => {
           return <Channel key={channel.name} {...channel} type={type} />;
         })}
@@ -80,7 +81,7 @@ const Candidate = memo(function Candidate(props) {
   );
 
   return (
-    <div className='candidate'>
+    <div className="candidate">
       <ul>
         {tickets.map((ticket, index) => {
           return (

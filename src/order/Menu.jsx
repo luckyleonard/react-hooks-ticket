@@ -19,9 +19,9 @@ const Menu = memo(function Menu(props) {
   //show 为是否展示， options为选项内容数组， onPress是点击完以后的回调，onPress和options作为一个整体menu对象 传给Menu组件
   return (
     <div>
-      {show && <div className='menu-mask' onClick={() => hideMenu()}></div>}
+      {show && <div className="menu-mask" onClick={() => hideMenu()}></div>}
       <div className={classnames('menu', { show })}>
-        <div className='menu-title'></div>
+        <div className="menu-title"></div>
         <ul>
           {options &&
             options.map((option) => {
@@ -29,7 +29,8 @@ const Menu = memo(function Menu(props) {
                 <MenuItem
                   key={option.value}
                   {...option}
-                  onPress={onPress}></MenuItem>
+                  onPress={onPress}
+                ></MenuItem>
               );
             })}
         </ul>

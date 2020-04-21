@@ -7,7 +7,7 @@ import './CitySelector.css';
 const CityItem = memo(function CityItem(props) {
   const { name, onSelect } = props;
   return (
-    <li className='city-li' onClick={() => onSelect(name)}>
+    <li className="city-li" onClick={() => onSelect(name)}>
       {name}
     </li>
   );
@@ -15,18 +15,18 @@ const CityItem = memo(function CityItem(props) {
 
 CityItem.propTypes = {
   name: PropTypes.string.isRequired,
-  onSelect: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired,
 };
 
 const CitySection = memo(function CitySection(props) {
   const { title, cities = [], onSelect } = props;
   return (
-    <ul className='city-ui'>
-      <li className='city-li' key='title' data-cate={title}>
+    <ul className="city-ui">
+      <li className="city-li" key="title" data-cate={title}>
         {/*添加一个data-cate标记用于选择*/}
         {title}
       </li>
-      {cities.map(city => {
+      {cities.map((city) => {
         return (
           <CityItem key={city.name} name={city.name} onSelect={onSelect} />
         );
@@ -38,14 +38,14 @@ const CitySection = memo(function CitySection(props) {
 CitySection.propTypes = {
   title: PropTypes.string.isRequired,
   cities: PropTypes.array,
-  onSelect: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired,
 };
 
 const AlphaIndex = memo(function AlphaIndex(props) {
   const { alpha, onClick } = props;
 
   return (
-    <i className='city-index-item' onClick={() => onClick(alpha)}>
+    <i className="city-index-item" onClick={() => onClick(alpha)}>
       {alpha}
     </i>
   );
@@ -53,7 +53,7 @@ const AlphaIndex = memo(function AlphaIndex(props) {
 
 AlphaIndex.propTypes = {
   alpha: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };
 
 const alphabet = Array.from(new Array(26), (ele, index) => {
@@ -64,9 +64,9 @@ const CityList = memo(function CityList(props) {
   const { sections, onSelect, toAlpha } = props;
 
   return (
-    <div className='city-list'>
-      <div className='city-cate'>
-        {sections.map(section => {
+    <div className="city-list">
+      <div className="city-cate">
+        {sections.map((section) => {
           return (
             <CitySection
               key={section.title}
@@ -77,8 +77,8 @@ const CityList = memo(function CityList(props) {
           );
         })}
       </div>
-      <div className='city-index'>
-        {alphabet.map(alpha => {
+      <div className="city-index">
+        {alphabet.map((alpha) => {
           return <AlphaIndex key={alpha} alpha={alpha} onClick={toAlpha} />;
         })}
       </div>
@@ -89,14 +89,14 @@ const CityList = memo(function CityList(props) {
 CityList.propTypes = {
   setions: PropTypes.array,
   onSelect: PropTypes.func.isRequired,
-  toAlpha: PropTypes.func.isRequired
+  toAlpha: PropTypes.func.isRequired,
 };
 
 const SuggestItem = memo(function SuggestItem(props) {
   const { name, onClick } = props;
 
   return (
-    <li className='city-suggest-li' onClick={() => onClick(name)}>
+    <li className="city-suggest-li" onClick={() => onClick(name)}>
       {name}
     </li>
   );
@@ -104,7 +104,7 @@ const SuggestItem = memo(function SuggestItem(props) {
 
 SuggestItem.propTypes = {
   name: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };
 
 const Suggest = memo(function Suggest(props) {
@@ -112,8 +112,8 @@ const Suggest = memo(function Suggest(props) {
   const [result, setResult] = useState([]);
   useEffect(() => {
     fetch('/rest/search?key=' + encodeURIComponent(searchKey))
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         const { result, searchKey: sKey } = data;
         if (sKey === searchKey) {
           setResult(result);
@@ -128,9 +128,9 @@ const Suggest = memo(function Suggest(props) {
   }, [result, searchKey]);
 
   return (
-    <div className='city-suggest'>
-      <ul className='city-suggest-ul'>
-        {fallBackResult.map(item => {
+    <div className="city-suggest">
+      <ul className="city-suggest-ul">
+        {fallBackResult.map((item) => {
           return (
             <SuggestItem
               key={item.display}
@@ -146,7 +146,7 @@ const Suggest = memo(function Suggest(props) {
 
 Suggest.propTypes = {
   searchKey: PropTypes.string.isRequired,
-  onSelect: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired,
 };
 
 const CitySelector = memo(function CitySelector(props) {
@@ -160,9 +160,9 @@ const CitySelector = memo(function CitySelector(props) {
       return;
     }
     fetchCityData();
-  }, [show, cityData, isLoading]); //在需要展示且没有cityData和并没有在loading状态下调用请求函数
+  }, [show, cityData, isLoading, fetchCityData]); //在需要展示且没有cityData和并没有在loading状态下调用请求函数
 
-  const toAlpha = useCallback(alpha => {
+  const toAlpha = useCallback((alpha) => {
     document.querySelector(`[data-cate='${alpha}']`).scrollIntoView();
   }, []); //与DOM的交互
 
@@ -186,40 +186,42 @@ const CitySelector = memo(function CitySelector(props) {
   return (
     <div
       className={classnames('city-selector', {
-        hidden: !show
-      })}>
-      <div className='city-search'>
-        <div className='search-back' onClick={() => onBack()}>
-          <svg width='42' height='42'>
+        hidden: !show,
+      })}
+    >
+      <div className="city-search">
+        <div className="search-back" onClick={() => onBack()}>
+          <svg width="42" height="42">
             <polyline
-              points='25,13 16,21 25,29'
-              stroke='#fff'
-              strokeWidth='2'
-              fill='none'
+              points="25,13 16,21 25,29"
+              stroke="#fff"
+              strokeWidth="2"
+              fill="none"
             />
           </svg>
         </div>
-        <div className='search-input-wrapper'>
+        <div className="search-input-wrapper">
           <input
-            type='text'
+            type="text"
             value={searchValue}
-            className='search-input'
-            placeholder='Input city name to search'
-            onChange={e => setSearchValue(e.target.value)}
+            className="search-input"
+            placeholder="Input city name to search"
+            onChange={(e) => setSearchValue(e.target.value)}
           />
         </div>
         <i
           className={classnames('search-clean', {
-            hidden: inputValue.length === 0
+            hidden: inputValue.length === 0,
           })}
-          onClick={() => setSearchValue('')}>
+          onClick={() => setSearchValue('')}
+        >
           &#xf063;
         </i>
       </div>
       {Boolean(inputValue) && (
         <Suggest
           searchKey={inputValue}
-          onSelect={inputValue => {
+          onSelect={(inputValue) => {
             onSelect(inputValue);
             setSearchValue('');
           }}
@@ -236,7 +238,7 @@ CitySelector.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   onBack: PropTypes.func.isRequired,
   fetchCityData: PropTypes.func.isRequired,
-  onSelect: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default CitySelector;

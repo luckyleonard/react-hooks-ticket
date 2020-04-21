@@ -24,16 +24,16 @@ const Detail = memo(function Detail(props) {
   const arriveDateStr = useMemo(() => format(arriveDate), [arriveDate]);
 
   return (
-    <div className='detail'>
-      <div className='content'>
-        <div className='left'>
-          <p className='city'>{departStation}</p>
-          <p className='time'>{departTimeStr}</p>
-          <p className='date'>{departDateStr}</p>
+    <div className="detail">
+      <div className="content">
+        <div className="left">
+          <p className="city">{departStation}</p>
+          <p className="time">{departTimeStr}</p>
+          <p className="date">{departDateStr}</p>
         </div>
-        <div className='middle'>
-          <p className='train-name'>{trainNumber}</p>
-          <p className='train-mid'>
+        <div className="middle">
+          <p className="train-name">{trainNumber}</p>
+          <p className="train-mid">
             {/* <span className='left'></span>
             <span
               className='schedule'
@@ -43,12 +43,12 @@ const Detail = memo(function Detail(props) {
             <span className='right'></span> */}
             {props.children}
           </p>
-          <p className='train-time'>Duration:{durationStr}</p>
+          <p className="train-time">Duration:{durationStr}</p>
         </div>
-        <div className='right'>
-          <p className='city'>{arriveStation}</p>
-          <p className='time'>{arriveTimeStr}</p>
-          <p className='date'>{arriveDateStr}</p>
+        <div className="right">
+          <p className="city">{arriveStation}</p>
+          <p className="time">{arriveTimeStr}</p>
+          <p className="date">{arriveDateStr}</p>
         </div>
       </div>
     </div>

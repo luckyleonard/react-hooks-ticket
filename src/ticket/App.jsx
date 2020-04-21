@@ -120,19 +120,20 @@ function App(props) {
   }
 
   return (
-    <div className='app'>
-      <div className='header-wrapper'>
+    <div className="app">
+      <div className="header-wrapper">
         <Header title={trainNumber} onBack={onBack} />
       </div>
-      <div className='nav-wrapper'>
+      <div className="nav-wrapper">
         <Nav
           date={departDate}
           isPrevDisabled={isPrevDisabled}
           isNextDisabled={isNextDisabled}
           prev={prev}
-          next={next}></Nav>
+          next={next}
+        ></Nav>
       </div>
-      <div className='detail-wrapper'>
+      <div className="detail-wrapper">
         <Detail
           departDate={departDate}
           arriveDate={arriveDate}
@@ -141,24 +142,28 @@ function App(props) {
           trainNumber={trainNumber}
           departStation={departStation}
           arriveStation={arriveStation}
-          durationStr={durationStr}>
-          <span className='left'></span>
+          durationStr={durationStr}
+        >
+          <span className="left"></span>
           <span
-            className='schedule'
-            onClick={() => detailCbs.toggleIsScheduleVisible()}>
+            className="schedule"
+            onClick={() => detailCbs.toggleIsScheduleVisible()}
+          >
             Schedule
           </span>
-          <span className='right'></span>
+          <span className="right"></span>
         </Detail>
       </div>
       <TrainContext.Provider
-        value={{ trainNumber, departStation, arriveStation, departDate }}>
+        value={{ trainNumber, departStation, arriveStation, departDate }}
+      >
         <Candidate tickets={tickets} />
       </TrainContext.Provider>
       {isScheduleVisible && (
         <div
-          className='mask'
-          onClick={() => dispatch(toggleIsScheduleVisible())}>
+          className="mask"
+          onClick={() => dispatch(toggleIsScheduleVisible())}
+        >
           <Suspense fallback={<div>loading</div>}>
             <Schedule
               date={departDate}

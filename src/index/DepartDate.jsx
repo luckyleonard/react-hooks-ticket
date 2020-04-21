@@ -11,7 +11,7 @@ export default function DepartDate(props) {
   const departDay = new Date(formatedDate);
   const departDateValue = useMemo(() => {
     return dayjs(time).format('YYYY-MM-DD');
-  }, [formatedDate]);
+  }, [time]);
 
   const isToday = formatedDate === formatDate();
   //formateDate() return formated Date.now() as the init value
@@ -24,20 +24,20 @@ export default function DepartDate(props) {
       'Wednesday',
       'Thursday',
       'Friday',
-      'Saturday'
+      'Saturday',
     ][departDay.getDay()] + (isToday ? '(today)' : '');
 
   return (
-    <div className='depart-date' onClick={onClick}>
-      <input type='hidden' name='date' value={departDateValue} />
+    <div className="depart-date" onClick={onClick}>
+      <input type="hidden" name="date" value={departDateValue} />
       {/* set a hidden input for further form submit */}
       {departDateValue}
-      <span className='depart-week'> {weekdayValue}</span>
+      <span className="depart-week"> {weekdayValue}</span>
     </div>
   );
 }
 
 DepartDate.prototypes = {
   time: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };

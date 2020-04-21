@@ -7,7 +7,7 @@ import {
   ACTION_SET_IS_LOADING_CITY_DATA,
   ACTION_SET_IS_DATE_PICKER_VISIBLE,
   ACTION_SET_HIGH_SPEED_PICK,
-  ACTION_SET_DEPART_DATE
+  ACTION_SET_DEPART_DATE,
 } from './actionCreator';
 
 export default {
@@ -100,5 +100,5 @@ export default {
     }
 
     return state;
-  }
+  },
 };

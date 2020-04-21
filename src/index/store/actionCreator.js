@@ -12,28 +12,28 @@ export const ACTION_SET_DEPART_DATE = 'ACTION_SET_DEPART_DATE';
 export function setFrom(from) {
   return {
     type: ACTION_SET_FROM,
-    value: from
+    value: from,
   };
 }
 
 export function setTo(to) {
   return {
     type: ACTION_SET_TO,
-    value: to
+    value: to,
   };
 }
 
 export function setIsLoadingCityData(isLoadingCityData) {
   return {
     type: ACTION_SET_IS_LOADING_CITY_DATA,
-    value: isLoadingCityData
+    value: isLoadingCityData,
   };
 }
 
 export function setCityData(cityData) {
   return {
     type: ACTION_SET_CITY_DATA,
-    value: cityData
+    value: cityData,
   };
 }
 
@@ -42,20 +42,20 @@ export function toggleHighSpeed() {
     const { highSpeedPick } = getState();
     dispatch({
       type: ACTION_SET_HIGH_SPEED_PICK,
-      value: !highSpeedPick
+      value: !highSpeedPick,
     });
   };
 }
 
 export function showCityPicker(currentPickingLeftCity) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({
       type: ACTION_SET_IS_CITY_PICKER_VISIBLE,
-      value: true
+      value: true,
     });
     dispatch({
       type: ACTION_SET_CURRENT_PICKING_LEFT_CITY,
-      value: currentPickingLeftCity
+      value: currentPickingLeftCity,
     });
   };
 }
@@ -63,7 +63,7 @@ export function showCityPicker(currentPickingLeftCity) {
 export function hideCityPicker() {
   return {
     type: ACTION_SET_IS_CITY_PICKER_VISIBLE,
-    value: false
+    value: false,
   };
 }
 
@@ -84,14 +84,14 @@ export function setPickedCity(city) {
 export function showDatePicker() {
   return {
     type: ACTION_SET_IS_DATE_PICKER_VISIBLE,
-    value: true
+    value: true,
   };
 }
 
 export function hideDatePicker() {
   return {
     type: ACTION_SET_IS_DATE_PICKER_VISIBLE,
-    value: false
+    value: false,
   };
 }
 
@@ -106,7 +106,7 @@ export function exchangeFromTo() {
 export function setDepartDate(departDate) {
   return {
     type: ACTION_SET_DEPART_DATE,
-    value: departDate
+    value: departDate,
   };
 }
 
@@ -125,8 +125,8 @@ export function fetchCityData() {
 
     dispatch(setIsLoadingCityData(true));
     fetch('/rest/cities?_' + Date.now())
-      .then(res => res.json())
-      .then(cityData => {
+      .then((res) => res.json())
+      .then((cityData) => {
         dispatch(setCityData(cityData));
 
         localStorage.setItem(

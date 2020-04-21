@@ -22,7 +22,8 @@ const Choose = memo(function Choose(props) {
                 updatePassenger(passenger.id, {
                   seat: seatType,
                 })
-              }>
+              }
+            >
               &#xe02d;
             </p>
           );
@@ -33,10 +34,10 @@ const Choose = memo(function Choose(props) {
   }
 
   return (
-    <div className='choose'>
-      <p className='tip'>Seat Select</p>
-      <div className='container'>
-        <div className='seats'>
+    <div className="choose">
+      <p className="tip">Seat Select</p>
+      <div className="container">
+        <div className="seats">
           <div>窗</div>
           {createSeat('A')}
           {createSeat('B')}

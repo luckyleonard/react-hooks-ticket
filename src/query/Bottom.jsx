@@ -12,7 +12,8 @@ const Filter = memo(function Filter(props) {
   return (
     <li
       className={classnames({ checked })}
-      onClick={() => dispatch({ type: 'toggle', value })}>
+      onClick={() => dispatch({ type: 'toggle', value })}
+    >
       {name}
     </li>
   );
@@ -22,7 +23,7 @@ const Option = memo(function Option(props) {
   const { title, options, checkedMap, dispatch } = props;
 
   return (
-    <div className='option'>
+    <div className="option">
       <h3>{title}</h3>
       <ul>
         {options.map((option) => {
@@ -42,9 +43,10 @@ const Option = memo(function Option(props) {
 
 function checkedReducer(state, action) {
   const { type, value } = action;
+  let newState;
   switch (type) {
     case 'toggle':
-      const newState = { ...state };
+      newState = { ...state };
       if (value in newState) {
         delete newState[value];
       } else {
@@ -214,32 +216,33 @@ const BottomModal = memo(function BottomModal(props) {
   } //重置组件内缓冲初始值
 
   return (
-    <div className='bottom-modal'>
-      <div className='bottom-dialog'>
-        <div className='bottom-dialog-content'>
-          <div className='title'>
+    <div className="bottom-modal">
+      <div className="bottom-dialog">
+        <div className="bottom-dialog-content">
+          <div className="title">
             <span
               className={classnames('reset', { disabled: isResetDisabled })}
-              onClick={reset}>
+              onClick={reset}
+            >
               Reset
             </span>
-            <span className='ok' onClick={confirm}>
+            <span className="ok" onClick={confirm}>
               Confirm
             </span>
           </div>
-          <div className='options'>
+          <div className="options">
             {optionGroup.map((group) => {
               return <Option {...group} key={group.title} />;
             })}
             <Slider
-              title='Depart Time'
+              title="Depart Time"
               currentStartHours={localDepartTimeStart}
               currentEndHours={localDepartTimeEnd}
               onStartChanged={setLocalDepartTimeStart}
               onEndChanged={setLocalDepartTimeEnd}
             />
             <Slider
-              title='Arrive Time'
+              title="Arrive Time"
               currentStartHours={localArriveTimeStart}
               currentEndHours={localArriveTimeEnd}
               onStartChanged={setLocalArriveTimeStart}
@@ -307,30 +310,33 @@ export default function Bottom(props) {
   ]);
 
   return (
-    <div className='bottom'>
-      <div className='bottom-filters'>
-        <span className='item' onClick={toggleOrderTypes}>
-          <i className='icon'>&#xf065;</i>
+    <div className="bottom">
+      <div className="bottom-filters">
+        <span className="item" onClick={toggleOrderTypes}>
+          <i className="icon">&#xf065;</i>
           {orderTyps === ORDER_DEPART ? 'Depart Time' : 'Duration'}
         </span>
         <span
           className={classnames('item', { 'item-on': highSpeed })}
-          onClick={toggleHighSpeed}>
-          <i className='icon'>{highSpeed ? '\uf43f' : '\uf43e'}</i>
+          onClick={toggleHighSpeed}
+        >
+          <i className="icon">{highSpeed ? '\uf43f' : '\uf43e'}</i>
           Direct Fly
         </span>
         <span
           className={classnames('item', { 'item-on': onlyTickets })}
-          onClick={toggleOnlyTickets}>
-          <i className='icon'>{onlyTickets ? '\uf43d' : '\uf43c'}</i>
+          onClick={toggleOnlyTickets}
+        >
+          <i className="icon">{onlyTickets ? '\uf43d' : '\uf43c'}</i>
           Available
         </span>
         <span
           className={classnames('item', {
             'item-on': isFiltersVisible || !noChecked,
           })}
-          onClick={toggleIsFiltersVisible}>
-          <i className='icon'>{noChecked ? '\uf0f7' : '\uf446'}</i>
+          onClick={toggleIsFiltersVisible}
+        >
+          <i className="icon">{noChecked ? '\uf0f7' : '\uf446'}</i>
           Filter
         </span>
       </div>

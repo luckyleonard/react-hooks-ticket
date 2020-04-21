@@ -26,17 +26,20 @@ const ScheduleRow = memo(function ScheduleRow(props) {
       <div
         className={classnames('icon', {
           'icon-red': isDepartStation || isArriveStation,
-        })}>
+        })}
+      >
         {isDepartStation ? 'Dep' : isArriveStation ? 'Arr' : index}
       </div>
       <div
         className={classnames('row', {
           grey: beforeDepartStation || afterArriveStation,
-        })}>
+        })}
+      >
         <span
           className={classnames('station', {
             red: isArriveStation || isDepartStation,
-          })}>
+          })}
+        >
           {station}
         </span>
         <span className={classnames('arrtime', { red: isArriveStation })}>
@@ -45,7 +48,7 @@ const ScheduleRow = memo(function ScheduleRow(props) {
         <span className={classnames('deptime', { red: isDepartStation })}>
           {isEndStation ? '终到站' : departTime}
         </span>
-        <span className='stoptime'>
+        <span className="stoptime">
           {isStartStation || isEndStation ? '-' : stay + 'mins'}
         </span>
       </div>
@@ -123,14 +126,14 @@ const Schedule = memo(function Schedule(props) {
       });
   }, [date, trainNumber, departStation, arriveStation]);
   return (
-    <div className='schedule'>
-      <div className='dialog'>
+    <div className="schedule">
+      <div className="dialog">
         <h1>Time Schedule</h1>
-        <div className='head'>
-          <span className='station'>Station</span>
-          <span className='deptime'>Arrive</span>
-          <span className='arrtime'>Depart</span>
-          <span className='stoptime'>Stay</span>
+        <div className="head">
+          <span className="station">Station</span>
+          <span className="deptime">Arrive</span>
+          <span className="arrtime">Depart</span>
+          <span className="stoptime">Stay</span>
         </div>
         <ul>
           {scheduleList.map((schedule, index) => {

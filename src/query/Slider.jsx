@@ -10,7 +10,7 @@ const Slider = memo(function Slider(props) {
     currentStartHours,
     currentEndHours,
     onStartChanged,
-    onEndChanged
+    onEndChanged,
   } = props;
 
   const winSize = useWinSize();
@@ -61,11 +61,11 @@ const Slider = memo(function Slider(props) {
   }, [end]);
 
   const startHours = useMemo(() => Math.round((startPercent * 24) / 100), [
-    startPercent
+    startPercent,
   ]); //这里计算的是整点时间，变化只有在正数的时候才不会被round掉
 
   const endHours = useMemo(() => Math.round((endPercent * 24) / 100), [
-    endPercent
+    endPercent,
   ]);
 
   const startText = useMemo(() => {
@@ -96,14 +96,14 @@ const Slider = memo(function Slider(props) {
     const touch = e.targetTouches[0];
     const distance = touch.pageX - lastStartX.current;
     lastStartX.current = touch.pageX; //更新现在的滑块位置
-    setStart(start => start + (distance / rangeWidth.current) * 100); //根据滑动距离触发重渲染,这里计算的是移动的百分比
+    setStart((start) => start + (distance / rangeWidth.current) * 100); //根据滑动距离触发重渲染,这里计算的是移动的百分比
   }
 
   function onEndTouchMove(e) {
     const touch = e.targetTouches[0];
     const distance = touch.pageX - lastEndX.current;
     lastEndX.current = touch.pageX; //更新现在的滑块位置
-    setEnd(end => end + (distance / rangeWidth.current) * 100); //根据滑动距离触发重渲染
+    setEnd((end) => end + (distance / rangeWidth.current) * 100); //根据滑动距离触发重渲染
   }
 
   useEffect(() => {
@@ -138,37 +138,40 @@ const Slider = memo(function Slider(props) {
 
   useEffect(() => {
     onStartChanged(startHours);
-  }, [startHours]);
+  }, [onStartChanged, startHours]);
 
   useEffect(() => {
     onEndChanged(endHours);
-  }, [endHours]);
+  }, [endHours, onEndChanged]);
 
   return (
-    <div className='option'>
+    <div className="option">
       <h3>{title}</h3>
-      <div className='range-slider'>
-        <div className='slider' ref={range}>
+      <div className="range-slider">
+        <div className="slider" ref={range}>
           <div
-            className='slider-range'
+            className="slider-range"
             style={{
               left: startPercent + '%',
-              width: endPercent - startPercent + '%'
-            }}></div>
+              width: endPercent - startPercent + '%',
+            }}
+          ></div>
           <i
             ref={startHandle}
-            className='slider-handle'
+            className="slider-handle"
             style={{
-              left: startPercent + '%'
-            }}>
+              left: startPercent + '%',
+            }}
+          >
             <span>{startText}</span>
           </i>
           <i
             ref={endHandle}
-            className='slider-handle'
+            className="slider-handle"
             style={{
-              left: endPercent + '%'
-            }}>
+              left: endPercent + '%',
+            }}
+          >
             <span>{endText}</span>
           </i>
         </div>
@@ -182,7 +185,7 @@ Slider.propTypes = {
   currentStartHours: PropTypes.number.isRequired,
   currentEndHours: PropTypes.number.isRequired,
   onStartChanged: PropTypes.func.isRequired,
-  onEndChanged: PropTypes.func.isRequired
+  onEndChanged: PropTypes.func.isRequired,
 };
 
 export default Slider;

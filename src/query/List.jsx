@@ -13,7 +13,7 @@ const ListItem = memo(function ListItem(props) {
     date,
     time,
     priceMsg,
-    dayAfter
+    dayAfter,
   } = props;
 
   const url = useMemo(() => {
@@ -26,36 +26,36 @@ const ListItem = memo(function ListItem(props) {
   }, [aStation, dStation, trainNumber, date]);
 
   return (
-    <li className='list-item'>
+    <li className="list-item">
       <a href={url}>
-        <span className='item-time'>
+        <span className="item-time">
           <em>{dTime}</em>
           <br />
-          <em className='em-light'>
+          <em className="em-light">
             {aTime}
-            <i className='time-after'>{dayAfter}</i>
+            <i className="time-after">{dayAfter}</i>
           </em>
         </span>
-        <span className='item-stations'>
+        <span className="item-stations">
           <em>
-            <i className='train-station train-start'>D</i>
+            <i className="train-station train-start">D</i>
             {dStation}
           </em>
           <br />
-          <em className='em-light'>
-            <i className='train-station train-end'>A</i>
+          <em className="em-light">
+            <i className="train-station train-end">A</i>
             {aStation}
           </em>
         </span>
-        <span className='item-train'>
+        <span className="item-train">
           <em>{trainNumber}</em>
           <br />
-          <em className='em-light'>{time}</em>
+          <em className="em-light">{time}</em>
         </span>
-        <span className='item-ticket'>
+        <span className="item-ticket">
           <em>{priceMsg}</em>
           <br />
-          <em className='em-light-orange'>get it now</em>
+          <em className="em-light-orange">get it now</em>
         </span>
       </a>
     </li>
@@ -70,14 +70,14 @@ ListItem.propTypes = {
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   priceMsg: PropTypes.string.isRequired,
-  dayAfter: PropTypes.string.isRequired
+  dayAfter: PropTypes.string.isRequired,
 };
 
 const List = memo(function List(props) {
   const { list } = props;
   return (
-    <ul className='list'>
-      {list.map(item => (
+    <ul className="list">
+      {list.map((item) => (
         <ListItem {...item} key={item.trainNumber} />
       ))}
     </ul>
@@ -85,7 +85,7 @@ const List = memo(function List(props) {
 });
 
 List.propTypes = {
-  list: PropTypes.array.isRequired
+  list: PropTypes.array.isRequired,
 };
 
 export default List;

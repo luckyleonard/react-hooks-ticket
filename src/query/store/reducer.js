@@ -52,11 +52,12 @@ export default {
   },
   highSpeed(state = false, action) {
     const { type, value } = action;
+    let checkedTripTypes;
     switch (type) {
       case ACTION_SET_HIGH_SPEED:
         return value;
       case ACTION_SET_CHECKED_TRIP_TYPES:
-        const checkedTripTypes = value;
+        checkedTripTypes = value;
         return Boolean(checkedTripTypes[1] && checkedTripTypes[5]);
       default:
     }
@@ -118,12 +119,14 @@ export default {
   },
   checkedTripTypes(state = {}, action) {
     const { type, value } = action;
+    let highSpeed;
+    let newCheckedTrainTypes;
     switch (type) {
       case ACTION_SET_CHECKED_TRIP_TYPES:
         return value;
       case ACTION_SET_HIGH_SPEED:
-        const highSpeed = value;
-        const newCheckedTrainTypes = { ...state };
+        highSpeed = value;
+        newCheckedTrainTypes = { ...state };
         if (highSpeed) {
           newCheckedTrainTypes[1] = true;
           newCheckedTrainTypes[5] = true;

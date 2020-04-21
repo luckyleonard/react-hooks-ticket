@@ -125,11 +125,11 @@ function App(props) {
   }
 
   return (
-    <div className='app'>
-      <div className='header-wrapper'>
-        <Header title='Booking Inform' Back={onBack} />
+    <div className="app">
+      <div className="header-wrapper">
+        <Header title="Booking Inform" Back={onBack} />
       </div>
-      <div className='detail-wrapper'>
+      <div className="detail-wrapper">
         <Detail
           departDate={departDate}
           arriveDate={arriveDate}
@@ -138,8 +138,9 @@ function App(props) {
           trainNumber={trainNumber}
           departStation={departStation}
           arriveStation={arriveStation}
-          durationStr={durationStr}>
-          <span style={{ display: 'block' }} className='train-icon' />
+          durationStr={durationStr}
+        >
+          <span style={{ display: 'block' }} className="train-icon" />
         </Detail>
       </div>
       <Ticket price={price} type={seatType} />

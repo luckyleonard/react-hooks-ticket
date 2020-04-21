@@ -13,22 +13,24 @@ const Nav = memo(function Nav(props) {
   }, [date]);
 
   return (
-    <div className='nav'>
+    <div className="nav">
       <span
         onClick={prev}
         className={classnames('nav-prev', {
-          'nav-disabled': isPrevDisabled
-        })}>
+          'nav-disabled': isPrevDisabled,
+        })}
+      >
         Last Day
       </span>
       <span
         onClick={next}
         className={classnames('nav-next', {
-          'nav-disabled': isNextDisabled
-        })}>
+          'nav-disabled': isNextDisabled,
+        })}
+      >
         Next Day
       </span>
-      <span className='nav-date'>{currentString}</span>
+      <span className="nav-date">{currentString}</span>
     </div>
   );
 });
@@ -38,7 +40,7 @@ Nav.propTypes = {
   prev: PropTypes.func.isRequired,
   next: PropTypes.func.isRequired,
   isPrevDisabled: PropTypes.bool.isRequired,
-  isNextDisabled: PropTypes.bool.isRequired
+  isNextDisabled: PropTypes.bool.isRequired,
 };
 
 export default Nav;
