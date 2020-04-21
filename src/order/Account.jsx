@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react';
 
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 import classnames from 'classnames';
 import './Account.css';
 

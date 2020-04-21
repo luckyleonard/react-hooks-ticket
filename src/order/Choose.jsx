@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 import classnames from 'classnames';
 import './Choose.css';
 

@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 import './Detail.css';
 import dayjs from 'dayjs';
 

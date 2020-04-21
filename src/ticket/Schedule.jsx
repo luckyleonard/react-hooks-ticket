@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect } from 'react';
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 import classnames from 'classnames';
 import URI from 'urijs';
 import dayjs from 'dayjs';

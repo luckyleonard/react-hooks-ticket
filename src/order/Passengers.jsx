@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from 'react';
 
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 import './Passengers.css';
 
 const Passenger = memo(function Passenger(props) {

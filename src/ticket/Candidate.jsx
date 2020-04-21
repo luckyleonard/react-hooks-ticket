@@ -2,7 +2,7 @@ import React, { memo, useState, useCallback, useMemo, useContext } from 'react';
 import URI from 'urijs';
 import dayjs from 'dayjs';
 import { TrainContext } from './context';
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 import './Candidate.css';
 
 const Channel = memo(function Channel(props) {
