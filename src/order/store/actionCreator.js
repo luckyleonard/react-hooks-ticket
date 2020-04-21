@@ -1,3 +1,5 @@
+import Passengers from '../Passengers';
+
 export const ACTION_SET_TRAINNUMBER = 'ACTION_SET_TRAINNUMBER';
 export const ACTION_SET_DEPARTSTATION = 'ACTION_SET_DEPARTSTATION';
 export const ACTION_SET_ARRIVESTATION = 'ACTION_SET_ARRIVESTATION';
@@ -198,7 +200,7 @@ export function removePassenger(id) {
   };
 }
 
-export function updatePassenger(id, data) {
+export function updatePassenger(id, data, keysToBeRemoved = []) {
   return (dispatch, getState) => {
     const { passengers } = getState();
 
@@ -207,9 +209,149 @@ export function updatePassenger(id, data) {
         const newPassengers = [...passengers];
         newPassengers[i] = Object.assign({}, passengers[i], data);
         //生成一个新对象并把原有的数据和新加入的数据data一起返回
+        for (let key of keysToBeRemoved) {
+          delete newPassengers[i][key];
+        } //扩展 用以删除传入的属性
+
         dispatch(setPassengers(newPassengers));
         break;
       }
     }
   };
+}
+
+export function showMenu(menu) {
+  return (dispatch) => {
+    dispatch(setMenu(menu));
+    dispatch(setIsMenuVisible(true));
+  }; //设置menu的对象值 并让Menu可见
+}
+
+export function showGenderMenu(id) {
+  return (dispatch, getState) => {
+    const { passengers } = getState();
+
+    const passenger = passengers.find((passenger) => passenger.id === id);
+
+    if (!passenger) {
+      return;
+    } //确认用户存在
+    dispatch(
+      showMenu({
+        onPress(gender) {
+          dispatch(updatePassenger(id, { gender }));
+          dispatch(hideMenu());
+        },
+        options: [
+          {
+            title: 'Male',
+            value: 'male',
+            active: 'male' === passenger.gender,
+          },
+          {
+            title: 'Female',
+            value: 'female',
+            active: 'female' === passenger.gender,
+          },
+        ],
+      })
+    ); //options用以渲染MenuItem，onPress将选中的gender值回传
+  };
+}
+
+export function showFollowAdult(id) {
+  return (dispatch, getState) => {
+    const { passengers } = getState();
+
+    const passenger = passengers.find((passenger) => passenger.id === id);
+
+    if (!passenger) {
+      return;
+    }
+    dispatch(
+      showMenu({
+        onPress(followAdult) {
+          dispatch(updatePassenger(id, { followAdult }));
+          dispatch(hideMenu());
+        },
+        options: passengers
+          .filter((passenger) => passenger.ticketType === 'adult')
+          .map((adult) => {
+            return {
+              title: adult.name,
+              value: adult.id,
+              active: adult.id === passenger.followAdult,
+            }; // const passenger = passengers.find((passenger) => passenger.id === id); passenger来自于这里，只得是儿童
+          }),
+      })
+    ); //options用以渲染MenuItem，onPress将选中的followAdult值回传
+  };
+}
+
+export function showTicketTypeMenu(id) {
+  return (dispatch, getState) => {
+    const { passengers } = getState();
+
+    const passenger = passengers.find((passenger) => passenger.id === id);
+
+    if (!passenger) {
+      return;
+    }
+    dispatch(
+      showMenu({
+        onPress(ticketType) {
+          if ('adult' === ticketType) {
+            dispatch(
+              updatePassenger(
+                id,
+                {
+                  ticketType,
+                  licenceNo: '',
+                },
+                ['gender', 'followAdult', 'birthday']
+              )
+            ); //给成人添加这个字段
+          } else {
+            const adult = passengers.find(
+              (passenger) =>
+                passenger.id !== id && passenger.ticketType === 'adult'
+            );
+            if (adult) {
+              dispatch(
+                updatePassenger(
+                  id,
+                  {
+                    ticketType,
+                    gender: '',
+                    followAdult: adult.id,
+                    birthday: '',
+                  },
+                  ['licenceNo']
+                )
+              );
+            } else {
+              alert('Please add at least one adult first');
+            }
+          }
+          dispatch(hideMenu());
+        },
+        options: [
+          {
+            title: '成人票',
+            value: 'adult',
+            active: 'adult' === passenger.ticketType,
+          },
+          {
+            title: '儿童票',
+            value: 'child',
+            active: 'child' === passenger.ticketType,
+          },
+        ],
+      })
+    );
+  };
+}
+
+export function hideMenu() {
+  return setIsMenuVisible(false);
 }

@@ -9,6 +9,7 @@ import Account from './Account';
 import Choose from './Choose';
 import Passengers from './Passengers';
 import Ticket from './Ticket';
+import Menu from './Menu';
 import './App.css';
 
 import {
@@ -23,6 +24,10 @@ import {
   createChild,
   removePassenger,
   updatePassenger,
+  hideMenu,
+  showGenderMenu,
+  showFollowAdult,
+  showTicketTypeMenu,
 } from './store/actionCreator';
 import { bindActionCreators } from 'redux';
 
@@ -89,6 +94,18 @@ function App(props) {
         createChild,
         removePassenger,
         updatePassenger,
+        showGenderMenu,
+        showFollowAdult,
+        showTicketTypeMenu,
+      },
+      dispatch
+    );
+  }, [dispatch]);
+
+  const menuCbs = useMemo(() => {
+    return bindActionCreators(
+      {
+        hideMenu,
       },
       dispatch
     );
@@ -118,6 +135,7 @@ function App(props) {
       </div>
       <Ticket price={price} type={seatType} />
       <Passengers passengers={passengers} {...passengersCbs} />
+      <Menu show={isMenuVisible} {...menu} {...menuCbs} />
     </div>
   );
 }

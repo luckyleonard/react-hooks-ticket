@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 
 import propTypes from 'prop-types';
 import './Passengers.css';
@@ -14,6 +14,10 @@ const Passenger = memo(function Passenger(props) {
     birthday,
     onRemove,
     onUpdate,
+    showGenderMenu,
+    showFollowAdult,
+    showTicketTypeMenu,
+    nameMap,
   } = props;
 
   const isAdult = ticketType === 'adult';
@@ -33,7 +37,9 @@ const Passenger = memo(function Passenger(props) {
             value={name}
             onChange={(e) => onUpdate(id, { name: e.target.value })}
           />
-          <label className='ticket-type'>{isAdult ? '成人票' : '儿童票'}</label>
+          <label className='ticket-type' onClick={() => showTicketTypeMenu(id)}>
+            {isAdult ? '成人票' : '儿童票'}
+          </label>
         </li>
         {isAdult && (
           <li className='item'>
@@ -58,6 +64,7 @@ const Passenger = memo(function Passenger(props) {
                 gender === 'male' ? 'Male' : gender === 'female' ? 'Female' : ''
               }
               readOnly
+              onClick={() => showGenderMenu(id)}
               // onChange={(e) => onUpdate(id, { gender: e.target.value })}
             />
           </li>
@@ -81,8 +88,9 @@ const Passenger = memo(function Passenger(props) {
               type='text'
               className='input followAdult'
               placeholder='Please select'
-              value={followAdult}
+              value={nameMap[followAdult]}
               readOnly
+              onClick={() => showFollowAdult(id)}
               // onChange={(e) => onUpdate(id, { gender: e.target.value })}
             />
           </li>
@@ -99,7 +107,21 @@ const Passengers = memo(function Passengers(props) {
     createChild,
     removePassenger,
     updatePassenger,
+    showGenderMenu,
+    showFollowAdult,
+    showTicketTypeMenu,
   } = props;
+
+  const nameMap = useMemo(() => {
+    const ret = {};
+
+    for (const passenger of passengers) {
+      ret[passenger.id] = passenger.name;
+    }
+
+    return ret; // 将所有用户id和姓名做映射
+  }, [passengers]);
+
   return (
     <div className='passengers'>
       <ul>
@@ -110,6 +132,10 @@ const Passengers = memo(function Passengers(props) {
               key={passenger.id}
               onRemove={removePassenger}
               onUpdate={updatePassenger}
+              showGenderMenu={showGenderMenu}
+              showFollowAdult={showFollowAdult}
+              showTicketTypeMenu={showTicketTypeMenu}
+              nameMap={nameMap}
             />
           );
         })}
